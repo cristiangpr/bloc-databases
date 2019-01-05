@@ -1,0 +1,155 @@
+Use the commands above to complete the following tasks, and submit the SQL statements. Real-world examples must be distinct from those used in the text.
+
+1. List the commands for adding, updating, and deleting data.
+A: 
+adding: INSERT INTO
+updating: UPDATE 
+deleting: DELETE 
+
+2. Explain the structure for each type of command.
+A:
+INSERT: INSERT INTO database name (column names) VALUES (values)
+UPDATE: UPDATE database name SET updated values WHERE selector value
+DELETE: DELETE FROM database name WHERE selector value or values
+
+
+3. What are some of the data types that can be used in tables? Give a real-world example of each type.
+A:
+money: prices of items in inventory
+point: geographic location
+inet: network adresses
+ARRAY: an employee schedule
+
+
+4. Decide how to create a new table to hold a list of people invited to a wedding dinner. The table needs to have first and last names, whether they sent in their RSVP, the number of guests they are bringing, and the number of meals (1 for adults and 1/2 for children).
+
+Which data type would you use to store each of the following pieces of information?
+
+* First and last name.
+A: text
+
+* Whether they sent in their RSVP.
+A: boolean
+
+* Number of guests.
+A: integer
+
+* Number of meals.
+A: float
+
+* Write a command that creates the table to track the wedding dinner.
+A:
+CREATE TABLE wedding (
+Name text,
+RSVP boolean,
+Guests integer,
+Meals float
+);
+
+
+* Write a command that adds a column to track whether the guest sent a thank you card.
+A:
+ALTER TABLE wedding ADD COLUMN Thankyou boolean;
+
+* You have decided to move the data about the meals to another table, so write a command to remove the column storing the number meals from the wedding table.
+A:
+ALTER TABLE wedding DROP COLUMN Meals;
+
+* The guests will need a place to sit at the reception, so write a command that adds a column for table number.
+A:
+ALTER TABLE wedding ADD COLUMN Tablenumber integer;
+
+
+* The wedding is over and we do not need to keep this information, so write a command that deletes the table numbers from the database.
+A:
+DROP TABLE wedding;
+
+5. Write a command to create a new table to hold the books in a library with the columns ISBN, title, author, genre, publishing date, number of copies, and available copies.
+
+A: 
+CREATE TABLE books (
+ISBN integer, 
+title text,
+author text,
+genre text,
+pubdate, date
+copies integer,
+available integer
+);
+
+* Find three books and add their information to the table.
+A:
+INSERT INTO books (ISBN, title, author, genre, pubdate, copies, available)
+VALUES
+(9780760987, 'Surfing California', 'Raul Guisado', 'Travel Guide', '2005-01-22', 4, 2),
+(1570999765, 'The Knee of Listening', 'Adi Da Samari', 'Religion and Spirituality', '1975-04-01', 3, 3),
+(0821738654, 'By Blood Divided', 'Lewis Orde', 'Historical Novel', '1991-02-11', 2, 1);
+
+* Someone has just checked out one of the books. Change the number of available copies to 1 fewer.
+A:
+UPDATE books SET available=2 WHERE ISBN=1570999765;
+
+
+* Now one of the books has been added to the banned books list. Remove it from the table.
+A:
+DELETE FROM books WHERE ISBN=0821738654 AND title='By Blood Divided';
+
+
+6. Write a command to make a new table to hold spacecrafts. Information should include id, name, year launched, country of origin, a brief description of the mission, orbiting body, if it is currently operating, and its approximate miles from Earth. In addition to the table creation, provide commands that perform the following operations:
+A:
+CREATE TABLE spacecraft (
+id integer,
+name text,
+launchYear integer,
+country text,
+mission text,
+orbiting text,
+operatng boolean,
+distance bigint
+);
+* Add three non-Earth-orbiting satellites to the table.
+INSERT INTO spacecraft (id, name, launchYear, country, mission, orbiting, operating, distance) 
+VALUES
+(13420, '2001 Mars Odessey', 2001, 'USA', 'detect evidence of water', Mars, TRUE, 54000000), 
+(40329, 'Chang'e 5 T1', 2015, 'China', 'sample return', Moon, TRUE, 384,400), 
+(89234, 'Mars Orbiter Mission', 'India', 'technology demonstrator', Mars, TRUE, 54000000);
+
+
+
+
+* Remove one of the satellites from the table since it has just crashed into the planet.
+A:
+DELETE FROM spacecraft WHERE id=40329;
+
+* Edit another satellite because it is no longer operating and change the value to reflect that.*
+A:
+UPDATE spacecraft SET operating=FALSE WHERE name='Mars Orbiter Mission';
+
+7. Write a command to create a new table to hold the emails in your inbox. This table should include an id, the subject line, the sender, any additional recipients, the body of the email, the timestamp, whether or not you have read the email, and the id of the email chain it's in. Also provide commands that perform the following operations:
+A:
+CREATE TABLE email (
+id integer,
+subject text,
+sender text,
+cc text,
+body text,
+timestamp timestamp,
+read boolean,
+chainid integer
+);
+
+* Add three new emails to the inbox.
+A:
+INSERT INTO email (id, subject, sender, cc, body, timestamp, read, chainid) 
+VALUES
+(243, 'checkpoint approved', 'bloc', 'mentor@bloc.com', 'checkpoint 1 approved!', TIMESTAMP '2019-01-08 04:05:06', TRUE, 54), 
+(244, 'revision requested', 'bloc, 'mentor@bloc.com', 'revision requested for checkpoint 2', TIMESTAMP '2019-01-09 06:15:06', FALSE, 54), 
+(410, 'barbecue', 'Buddy', 'friend@friends.net', 'come to the bbq!', TIMESTAMP '2019-01-09 06:24:34', TRUE, 60);
+
+* You deleted one of the emails, so write a command to remove the row from the inbox table.
+
+DELETE FROM email WHERE id=243;
+
+* You started reading an email but just heard a crash in another room. Mark the email as unread before investigating the crash, so you can come back and read it later.
+
+UPDATE email SET read=FALSE WHERE id=410;
