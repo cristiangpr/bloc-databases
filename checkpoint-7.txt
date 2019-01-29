@@ -82,4 +82,4 @@ FROM transactions
 JOIN books ON (books.isbn = transactions.isbn 
 AND transactions.checked_out_date IS NOT NULL 
 AND transactions.checked_in_date IS NULL)
-RIGHT OUTER JOIN patrons ON transactions.patron_id = patrons.id 
+RIGHT OUTER JOIN patrons ON transactions.patron_id = patrons.id ;
