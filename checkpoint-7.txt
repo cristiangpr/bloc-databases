@@ -66,7 +66,7 @@ SELECT name FROM dogs LEFT JOIN dog_adoptions ON dogs.id = dog_adoptions.dog_id 
 
 * The name of the person who adopted Rosco.
 A:
-SELECT first_name, last_name FROM adopters JOIN dog_adoptions ON adopters.id = dog_adoptions.adopter_id;
+SELECT first_name, last_name FROM adopters JOIN dog_adoptions ON adopters.id = dog_adoptions.adopter_id WHERE dog_adoptions.dog_id = 10007;
 
 
 9. Using this Library schema and data, write queries applying the following scenarios and include the results:
